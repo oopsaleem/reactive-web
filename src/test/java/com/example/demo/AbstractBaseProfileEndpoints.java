@@ -14,7 +14,8 @@ import java.util.UUID;
 
 @Log4j2
 @WebFluxTest
-public class AbstractBaseProfileEndpoints {
+public abstract class AbstractBaseProfileEndpoints {
+
     private final WebTestClient client;
 
     @MockBean

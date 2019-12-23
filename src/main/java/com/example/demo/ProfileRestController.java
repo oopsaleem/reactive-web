@@ -11,7 +11,7 @@ import java.net.URI;
 @RequestMapping(value = "/profiles", produces = MediaType.APPLICATION_JSON_VALUE)
 @org.springframework.context.annotation.Profile("classic")
 class ProfileRestController {
-    private final MediaType mediaType = MediaType.APPLICATION_JSON; //APPLICATION_JSON_UTF8;
+    private final MediaType mediaType = MediaType.APPLICATION_JSON; //APPLICATION_JSON;
     private final ProfileService profileRepository;
 
     ProfileRestController(ProfileService profileRepository) {

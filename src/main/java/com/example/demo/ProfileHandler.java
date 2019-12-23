@@ -12,12 +12,15 @@ import java.net.URI;
 
 @Component
 class ProfileHandler {
+    //as before, we’re going to make use of our ProfileService to do the heavy lifting
     private final ProfileService profileService;
 
     ProfileHandler(ProfileService profileService) {
         this.profileService = profileService;
     }
 
+    //	Each handler method has an identical signature: ServerRequest is the request parameter and
+    //	Mono<ServerResponse> is the return value.
     Mono<ServerResponse> getById(ServerRequest r) {
         return defaultReadResponse(this.profileService.get(id(r)));
     }
@@ -43,7 +46,11 @@ class ProfileHandler {
         return defaultWriteResponse(flux);
     }
 
-
+    /* We can centralize common logic in, yep! - you guessed it! — functions. This function creates
+       a Mono<ServerResponse> from a Publisher<Profile> for any incoming request. Each request uses the ServerResponse
+       builder object to create a response that has a Location header, a Content-Type header, and no payload.
+       (You don’t need to send a payload in the response for PUT or POST, for example).
+     */
     private static Mono<ServerResponse> defaultWriteResponse(Publisher<Profile> profiles) {
         return Mono
                 .from(profiles)
@@ -54,7 +61,7 @@ class ProfileHandler {
                 );
     }
 
-
+    //this method centralizes all configuration for replies to read requests (for instance, those coming from GET verbs)
     private static Mono<ServerResponse> defaultReadResponse(Publisher<Profile> profiles) {
         return ServerResponse
                 .ok()

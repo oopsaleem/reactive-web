@@ -13,7 +13,10 @@ import reactor.test.StepVerifier;
 import java.util.UUID;
 import java.util.function.Predicate;
 
-class ProfileServiceTest {
+@Log4j2
+@DataMongoTest
+@Import(ProfileService.class)
+public class ProfileServiceTest {
 
     private final ProfileService service;
     private final ProfileRepository repository;
